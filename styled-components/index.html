@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Styled Components</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <div id="container"></div>
@@ -37,18 +42,21 @@
         const styled = createStyledElements(htmlTags)
 
         const TitleStyled = styled.div`
+            display:flex;
             font-family: system-ui;
             color: orange;
             font-size: 50px;
             text-shadow: 2px 2px 0 black;
             line-height: 100vh;
+            margin: 0;
+            justify-content: center;
         `
         
 
         const props = {
             message: "No te rindas"
         }
-        const Title = component`<h1> ${'message'} </h1>`(props)
+        const Title = component`<h1 style="margin: 0;"> ${'message'} </h1>`(props)
 
         
 
