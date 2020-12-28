@@ -23,7 +23,7 @@ const price = 2700
     window.offer.textContent = macbook.price
     window['final-price'].textContent = macbook.finalPrice
 
-    const makeAnOffer = macbook.discount(15)
+    const makeAnOffer = macbook.discount(20)
     window['make-offer'].addEventListener('click', () => {
       window['final-price'].textContent = makeAnOffer.next().value
     })
