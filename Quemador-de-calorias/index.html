@@ -87,7 +87,7 @@
         store.subscribe(() => {
             console.log("Ha cambiado un estado", store.getState())
             window.alterResult.textContent = `Te faltan ${store.getState().clicks} para quemar una pizza y una coca cola`
-            window.result.textContent = `Haz quemado ${store.getState().burned} calorías`
+            window.result.textContent = `Haz quemado ${store.getState().burned.toFixed(2)} calorías`
         })
 
         const burn = () => {
