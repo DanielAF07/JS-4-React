@@ -37,7 +37,11 @@
         function makeIceCream([flavor1 = isRequired('flavor1'), flavor2 = isRequired('flavor2'), ...otherFlavors]){
           const toppings = otherFlavors.map((f) => f.dataset.flavor)  
           console.log(toppings)
-          alert(`Haz comprado un delicioso helado de ${flavor1.dataset.flavor} y ${flavor2.dataset.flavor} con toppings de ${toppings.join(', ')}`)
+          let msg = `Haz comprado un delicioso helado de ${flavor1.dataset.flavor} y ${flavor2.dataset.flavor}`
+          if(toppings.length) {
+            msg += ` con toppings de ${toppings.join(', ')}`
+          }
+          alert(msg)
         }
 
         window.btn.addEventListener('click', () => {
