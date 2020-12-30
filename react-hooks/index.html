@@ -46,7 +46,6 @@
         const [age, setAge] = useState(10)
         function render(){
           const bio = bio_.replace('10', age())
-          console.log(bio)
           return `
           <div class="user">
               <img src="${avatar}" alt="${name}" width="140" height="140" />

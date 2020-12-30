@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paramater Defaults</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <main class="wrapper">
+      <h1>Icecream Machine</h1>
+      <p>Elige los 2 sabores que más te gusten y haz tu orden</p>
+      <div class="icrecream-grid">
+        <div class="flavor" data-flavor="strawberry"></div>
+        <div class="flavor" data-flavor="chocolate"></div>
+        <div class="flavor" data-flavor="orange"></div>
+        <div class="flavor" data-flavor="vanilla"></div>
+        <div class="flavor" data-flavor="lemon"></div>
+      </div>
+      <button id="btn" class="button">Preparar Helado</button>
+    </main>
+    <script>
+        const $flavors = document.querySelectorAll('.flavor')
+
+        let selectedFlavors = []
+
+        $flavors.forEach( flavor => flavor.addEventListener('click', selectFlavor))
+
+        function selectFlavor() {
+            if(!selectedFlavors.includes(this)){
+                selectedFlavors.push(this)
+                this.classList.toggle('is-active', true)
+                if(selectedFlavors.length > 2){
+                    deleted = selectedFlavors.shift()
+                    deleted.classList.toggle('is-active', false)
+                }
+            }
+            else if (selectedFlavors.includes(this)) {
+                selectedFlavors.splice(selectedFlavors.indexOf(this), 1)
+                this.classList.toggle('is-active', false)
+            }
+        }
+
+        function isRequired(param){
+            throw new Error(`${param} es requerido`)
+        }
+
+        function makeIceCream(flavor1 = isRequired('flavor1'), flavor2 = isRequired('flavor2')){
+            alert(`Haz comprado un delicioso helado de ${flavor1.dataset.flavor} y ${flavor2.dataset.flavor}`)
+        }
+
+        window.btn.addEventListener('click', () => {
+            const $flavors = document.querySelectorAll('.flavor.is-active')
+            try {
+                makeIceCream($flavors[0], $flavors[1])
+            } catch (error) {
+                alert('Aun no completas tu orden de helado')
+            }
+        })
+    </script>
+  </body>
+</html>
