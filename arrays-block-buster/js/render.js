@@ -1,10 +1,15 @@
+export function renderFromMap(list, map){
+    cleanMovieList()
+    list.forEach(movieId => renderElement(map.get(movieId)))
+}
+
 function renderElement(movie) {
     const element = buildElement(movie)
-    window.container.append(element)
+    window.container.insertAdjacentHTML('beforeend',element)
 }
 
 function buildElement({title, poster_path, vote_average, id, recommended}) {
-    const template = `
+    return `
     <article class="movie ${recommended ? 'recommended' : ''} ">
         <img class="movie-poster" src="//image.tmdb.org/t/p/w220_and_h330_face/${poster_path}" alt="${title}">
         <p class="movie-title">${title}</p>
@@ -12,10 +17,6 @@ function buildElement({title, poster_path, vote_average, id, recommended}) {
         <span class="movie-rate">${vote_average}</span>
     </article>
     `
-
-    const movie = document.createElement('div')
-    movie.innerHTML = template
-    return movie.firstElementChild
 }
 
 function cleanMovieList(){
