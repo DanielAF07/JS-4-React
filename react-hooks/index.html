@@ -74,7 +74,7 @@
       const ash = User(user)
 
       window.addEventListener('click', () => {
-        const newAge = prompt('Que edad tendrá Ash', 10)
+        const newAge = prompt('Que edad tendrá Ash?', 10)
         ash.setAge(newAge)
         window.user.innerHTML = ash.render()
       })

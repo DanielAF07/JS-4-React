@@ -4,6 +4,7 @@ import './recommended.js'
 import './search.js'
 import './normalize.js'
 import './filter.js'
+import './popularity.js'
 
 
 render(movies)

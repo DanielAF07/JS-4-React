@@ -1,15 +1,16 @@
 const createStyledElements = (tags) => {
     let object = {}
     tags.forEach(tag => object[tag] = (styles) => {
-            return function (content) {
-                return`
-                <${tag} style="${styles}">
-                    ${content}
-                </${tag}>`
-            }
-        })
+        return function (content) {
+            return`
+            <${tag} style="${styles}">
+            ${content}
+            </${tag}>`
+        }
+    })
     return object
 }
+const styled = createStyledElements(htmlTags)
 
 function component(strings, ...dynamicValues) {
     return function(props) {
@@ -24,7 +25,6 @@ function component(strings, ...dynamicValues) {
 
 const htmlTags = ['h1', "h2", "h3", "div", "p", "small", "br", "button"];
 
-const styled = createStyledElements(htmlTags)
 
 const TitleStyled = styled.div`
     display:flex;
