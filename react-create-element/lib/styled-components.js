@@ -1,21 +1,15 @@
-const htmlTags = ['h1', "h2", "h3", "div", "p", "small", "br", "button", "img"];
+import { createElement } from './react/index.js'
+
+const htmlTags = ['h1', "h2", "h3", "div", "p", "small", "br", "button", "img", 'footer', 'header', 'article'];
 
 const createStyledElements = (tags) => {
     let object = {}
-    tags.forEach(tag => object[tag] = (styles) => {
-        if (tag == 'img'){
-            return function (content) {
-                return`
-                <${tag} style="${styles}" ${content}>
-                </${tag}>`
-            } 
-        } else {
-            return function (content) {
-                return`
-                <${tag} style="${styles}">
-                ${content}
-                </${tag}>`
-            }
+    tags.forEach(tag => object[tag] = (styles) => { 
+        return function (props, content) {
+            return createElement(tag, {
+                ...props,
+                style: styles
+            }, content)
         }
     })
     return object

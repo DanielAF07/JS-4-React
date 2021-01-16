@@ -2,7 +2,8 @@ import { render } from '../../react-dom.js'
 
 function renderChildren(children, container) {
     if(!Array.isArray(children)){
-        return render(children, container)
+        children = [children]
+        // return render(children, container)
     }
     return children.forEach(child => render(child, container))
 }
