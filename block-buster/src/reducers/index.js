@@ -1,4 +1,5 @@
-import { ADD_MOVIES, SET_FILTER } from '../actions/index.js'
+import { ADD_MOVIES, SEARCH_MOVIE, SET_FILTER } from '../actions/index.js'
+import movies from '../movies.js'
 import {
     getAllId,
     getLeastValued,
@@ -24,10 +25,51 @@ const reducer = (state, {type, payload}) => {
             }
         }
         case SET_FILTER:
-            return state
+            return {
+                ...state,
+                filter: payload
+            }
+        
+        case SEARCH_MOVIE:
+            return {
+                ...state,
+                filter: 'search',
+                list: {
+                    ...state.list,
+                    search: searchMovie(payload, state.movieList, state.list.all)
+                }
+            }
         default:
             return state
     }
+}
+
+function filterByTitle(title, list){
+    const matches = []
+    list.forEach((movie) => {
+        if(movie.title.toLowerCase().includes(title.toLowerCase())){
+            matches.push(movie.id)
+        }
+    })
+    return matches
+    return list.filter((movie, index) => 
+        movie.title.toLowerCase().includes(title.toLowerCase())
+    )
+}
+
+function findById(id, list){
+    console.log(list)
+    if(list.includes(parseInt(id,10))){
+        return [parseInt(id,10)]
+    }
+    return allIds
+}
+
+function searchMovie(query, list, allIds) {
+    if(isNaN(query)){
+        return filterByTitle(query, list)
+    }
+    return findById(query, allIds)
 }
 
 export default reducer
