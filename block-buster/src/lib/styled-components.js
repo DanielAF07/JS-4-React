@@ -1,6 +1,6 @@
 import { createElement } from './react/index.js'
 
-const htmlTags = ['h1', "h2", "h3", "div", "p", "small", "br", "button", "img", 'footer', 'header', 'article'];
+const htmlTags = ['h1', "h2", "h3", "div", "p", "small", "br", "button", "img", 'footer', 'header', 'article', 'form', 'input', 'select', 'section'];
 
 
 function buildStyles(strings, dynamicValues, props) {

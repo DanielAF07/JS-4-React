@@ -4,7 +4,8 @@ import { unmountComponentAtNode } from '../lib/react-dom.js'
 
 
 const UserStyled = styled.div`
-    background-image: linear-gradient(to bottom, #f9f9f9 0%, #f9f9f9 130px,rgba(0,0,0,.15) 130px, rgba(0,0,0,.15) 131px, white 131px, white 100%);
+    background-image: linear-gradient(to bottom, ${(props) => props.primaryColor} 0%, ${(props) => props.primaryColor} 130px,${(props) => props.tertiaryColor} 130px, ${(props) => props.tertiaryColor} 131px, ${(props) => props.secondaryColor} 131px, ${(props) => props.secondaryColor} 100%);
+    color: ${(props) => props.fontColor};
     text-align: center;
     overflow: hidden;
     padding: 20px;
@@ -44,7 +45,8 @@ const theme = {
 
 class User extends Component {
     state = {
-        mode: 'light'
+        mode: 'light',
+        age: this.props.age
     }
     setMode = (event) => {
         if(event.matches) {
@@ -62,18 +64,25 @@ class User extends Component {
         this.setMode(mediaQuery)
         mediaQuery.addEventListener('change', this.setMode)
     }
+
+    handleClick = (event) => {
+        this.setState({
+            age: this.state.age + 1
+        })
+    }
+
     render() {
-        const { mode } = this.state
+        const { mode, age } = this.state
         const colors = mode === 'light' ? theme.light : theme.dark
-        console.log(colors)
-        const { name, avatar, age } = this.props
+        const { name, avatar} = this.props
         return UserStyled({
+            ...colors,
             onClick: this.handleClick,
             children: [
                 AvatarStyled({
                     src: avatar
                 }),
-                createElement('h2', null, `Hola! Soy ${name} y tengo ${age} años`)
+                createElement('h2', null, `Hola! Soy ${name} y tengo ${age} años. Estoy en ${mode} modo`)
             ]
         })
     }

@@ -10,12 +10,6 @@ class App extends Component {
             children: [
                 new Wrapper({
                     children: [
-                        new User({
-                            name: 'Ash',
-                            avatar: './images/ash.jpg',
-                            age: 10,
-                            id:'ash'
-                        }),
                         new UserStyled({
                             name: 'Ash',
                             avatar: './images/ash.jpg',
