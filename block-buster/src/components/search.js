@@ -4,15 +4,29 @@ import Form from './form.js'
 import Input from './input.js'
 import Button from './button.js'
 import store from '../store.js'
-import { SEARCH_MOVIE, SET_FILTER } from '../actions/index.js'
+import api from '../api.js'
+import { SEARCH_MOVIE, SET_FILTER, SEARCH_ID, ADD_MOVIES } from '../actions/index.js'
 
 class Search extends Component {
-    handleSubmit = (event) => {
+
+    getPage = async (query) => {
+        const results = await api.lookForAMovie(query)
+        store.dispatch({
+            type: ADD_MOVIES,
+            payload: results
+        })
+    }
+    
+    handleSubmit = async (event) => {
         event.preventDefault()
-        console.log(event.target)
         const formData = new FormData(event.target)
         const query = formData.get('Title')
-        if(query){
+        const results = await api.searchMovie(query)
+        if(results){
+            store.dispatch({
+                type: ADD_MOVIES,
+                payload: results
+            })
             return store.dispatch({
                 type: SEARCH_MOVIE,
                 payload: query
@@ -23,14 +37,8 @@ class Search extends Component {
                 payload: 'all'
             })
         }
-        const filteredMovies = searchMovie(query)
-        console.log(filteredMovies)
-        if(filteredMovies[0] != undefined){
-            return render(filteredMovies)
-        }
-        render(movies)
-        alert('No encontramos tu pelicula')
     }
+
     render() {
         return Form({
             onSubmit: this.handleSubmit,

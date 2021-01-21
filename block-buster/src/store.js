@@ -1,6 +1,8 @@
 import { createStore } from './redux/index.js'
 import reducer from './reducers/index.js'
-import movies from './movies.js'
+// import movies from './movies.js'
+
+const movies = []
 
 import {
     movieListAsMap,

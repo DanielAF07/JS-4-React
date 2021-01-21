@@ -1,11 +1,13 @@
-import { ADD_MOVIES, SEARCH_MOVIE, SET_FILTER } from '../actions/index.js'
-import movies from '../movies.js'
+import { ADD_MOVIES, SEARCH_MOVIE, SET_FILTER, SEARCH_ID } from '../actions/index.js'
 import {
     getAllId,
     getLeastValued,
     getMostValued,
     movieListAsMap
 } from '../normalize.js'
+
+import api from '../api.js'
+
 const reducer = (state, {type, payload}) => {
     switch(type){
         case ADD_MOVIES:{
@@ -39,12 +41,24 @@ const reducer = (state, {type, payload}) => {
                     search: searchMovie(payload, state.movieList, state.list.all)
                 }
             }
+        case SEARCH_ID:{
+            return {
+                ...state,
+                filter: 'search',
+                list: {
+                    ...state.list,
+                    search: findById(payload, all)
+                }
+            }
+        }
         default:
             return state
     }
 }
 
 function filterByTitle(title, list){
+    const results = api.searchMovie(title)
+    console.log(results)
     const matches = []
     list.forEach((movie) => {
         if(movie.title.toLowerCase().includes(title.toLowerCase())){
@@ -52,17 +66,13 @@ function filterByTitle(title, list){
         }
     })
     return matches
-    return list.filter((movie, index) => 
-        movie.title.toLowerCase().includes(title.toLowerCase())
-    )
 }
 
 function findById(id, list){
-    console.log(list)
     if(list.includes(parseInt(id,10))){
         return [parseInt(id,10)]
     }
-    return allIds
+    return list
 }
 
 function searchMovie(query, list, allIds) {
